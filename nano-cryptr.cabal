@@ -13,7 +13,7 @@ cabal-version: >=1.8
 description:
   This package wraps @glibc@'s @crypt_r@ function in a thread-safe manner.
 
-tested-with:   GHC ==7.6.3 || ==7.8.4 || ==7.10.3
+tested-with:   GHC ==9.4.8
 
 library
   exposed-modules: System.Gnu.CryptR

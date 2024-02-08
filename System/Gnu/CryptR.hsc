@@ -40,6 +40,7 @@ module System.Gnu.CryptR
 import Control.Concurrent.MVar
 
 import qualified Data.ByteString as B
+import Data.String (IsString(fromString))
 
 import Foreign
 import Foreign.C.String
@@ -104,7 +105,8 @@ cryptR :: B.ByteString -- ^ the @key@ value as described in @crypt_r@
 cryptR key salt = Unsafe.unsafePerformIO $ do
     allocaBytes #{size struct crypt_data} $ \ptr -> do
         #{poke struct crypt_data, initialized} ptr (0 :: CInt)
-        crypt key salt ptr
+        res <- crypt key salt ptr
+        pure $ if res == Just (fromString "*0") then Nothing else res
 
 
 -- Common implementation guts
